@@ -1,20 +1,17 @@
 import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-} from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import ListScreen from './app/screen/ListScreen';
 
-const App = () => {
+const Stack = createNativeStackNavigator();
 
+export default function App() {
   return (
-    <SafeAreaView>
-      
-    </SafeAreaView>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="List">
+      <Stack.Screen name="List" component={ListScreen} />
+    </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  
-});
-
-export default App;
