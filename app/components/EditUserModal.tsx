@@ -40,6 +40,7 @@ const InputField = ({
       style={styles.input}
       keyboardType={keyboardType}
       autoCapitalize="none"
+      placeholderTextColor={'#808080'}
     />
   </>
 );
@@ -89,7 +90,7 @@ const EditUserModal: React.FC<Props> = ({
   };
 
   return (
-    <Modal visible={visible} animationType="slide">
+    <Modal visible={visible} animationType="slide" onRequestClose={onClose}>
       <ScrollView style={styles.container} keyboardShouldPersistTaps="handled">
         <Text style={styles.title}>{isEdit ? 'Edit' : 'Add'} User</Text>
 
@@ -248,6 +249,7 @@ const styles = StyleSheet.create({
     padding: 10,
     marginVertical: 6,
     borderRadius: 5,
+    color: '#000'
   },
   buttonRow: {
     flexDirection: 'row',
