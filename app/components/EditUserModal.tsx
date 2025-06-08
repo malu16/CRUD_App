@@ -181,11 +181,32 @@ const EditUserModal: React.FC<Props> = ({
         />
 
         <View style={styles.buttonRow}>
-          <Button
-            title="Submit"
-            onPress={() =>
-              onSubmit(isEdit ? { ...initialData!, ...form } : form)
-            }
+                  <Button
+                      title="Submit"
+                      onPress={() => {
+                          if (isEdit && initialData) {
+                              const updatedUser: User = {
+                                  ...initialData,
+                                  ...form,
+                                  address: {
+                                      ...initialData.address,
+                                      ...form.address,
+                                      geo: {
+                                          ...initialData.address.geo,
+                                          ...form.address.geo,
+                                      },
+                                  },
+                                  company: {
+                                      ...initialData.company,
+                                      ...form.company,
+                                  },
+                              };
+
+                              onSubmit(updatedUser);
+                          } else {
+                              onSubmit(form);
+                          }
+                      }}
           />
           <View style={{ width: 16 }} />
           <Button title="Cancel" onPress={onClose} color="#888" />
@@ -196,7 +217,7 @@ const EditUserModal: React.FC<Props> = ({
 };
 
 const styles = StyleSheet.create({
-  container: { padding: 20, backgroundColor: 'white' },
+  container: { padding: 20, backgroundColor: 'white', flex:1 },
   title: { fontSize: 24, fontWeight: 'bold', marginBottom: 20, textAlign: 'center' },
   sectionTitle: {
     fontSize: 18,
@@ -230,7 +251,7 @@ const styles = StyleSheet.create({
   },
   buttonRow: {
     flexDirection: 'row',
-    marginTop: 30,
+    marginVertical: 30,
     justifyContent: 'center',
   },
 });

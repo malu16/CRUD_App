@@ -9,6 +9,8 @@ interface UserContextProps {
   updateUser: (user: User) => Promise<void>;
   deleteUser: (id: number) => Promise<void>;
   loadMore: () => void;
+  page: number;
+  PAGE_SIZE: number;
 }
 
 const UserContext = createContext<UserContextProps | undefined>(undefined);
@@ -59,12 +61,14 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
   return (
     <UserContext.Provider
       value={{
-        users: users.slice(0, page * PAGE_SIZE),
+        users,
         loading,
         addUser: handleAddUser,
         updateUser: handleUpdateUser,
         deleteUser: handleDeleteUser,
         loadMore,
+        page,
+        PAGE_SIZE,
       }}
     >
       {children}

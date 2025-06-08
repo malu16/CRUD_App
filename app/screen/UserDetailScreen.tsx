@@ -10,9 +10,12 @@ interface Props {
 }
 
 const UserDetailScreen: React.FC<Props> = ({ route }) => {
-  const { user } = route.params;
-  const { updateUser } = useUserContext();
+  const { user: initialUser } = route.params;
+  const { users, updateUser } = useUserContext();
   const [modalVisible, setModalVisible] = useState(false);
+
+  const user = users.find((u) => u.id === initialUser.id);
+  if (!user) return <Text>User not found</Text>;
 
   const renderRow = (label: string, value: string | number, index: number) => (
     <View
@@ -49,28 +52,25 @@ const UserDetailScreen: React.FC<Props> = ({ route }) => {
   ];
 
   return (
-    <View style={{flex:1}}>
-    <ScrollView style={styles.container}>
+    <View style={{ flex: 1 }}>
+      <ScrollView style={styles.container}>
+        <View style={styles.table}>
+          <Text style={styles.sectionTitle}>Personal Info</Text>
+          {personalData.map(([label, value], i) => renderRow(label, value, i))}
+        </View>
 
-      <View style={styles.table}>
-        <Text style={styles.sectionTitle}>Personal Info</Text>
-        {personalData.map(([label, value], i) => renderRow(label, value, i))}
-      </View>
+        <View style={styles.table}>
+          <Text style={styles.sectionTitle}>Address</Text>
+          {addressData.map(([label, value], i) => renderRow(label, value, i))}
+        </View>
 
-      <View style={styles.table}>
-        <Text style={styles.sectionTitle}>Address</Text>
-        {addressData.map(([label, value], i) => renderRow(label, value, i))}
-      </View>
+        <View style={styles.table}>
+          <Text style={styles.sectionTitle}>Company</Text>
+          {companyData.map(([label, value], i) => renderRow(label, value, i))}
+        </View>
+      </ScrollView>
 
-      <View style={styles.table}>
-        <Text style={styles.sectionTitle}>Company</Text>
-        {companyData.map(([label, value], i) => renderRow(label, value, i))}
-      </View>
-
-      
-    </ScrollView>
-
-    <View style={styles.buttonContainer}>
+      <View style={styles.buttonContainer}>
         <Button title="Edit" onPress={() => setModalVisible(true)} />
       </View>
 
@@ -82,9 +82,9 @@ const UserDetailScreen: React.FC<Props> = ({ route }) => {
           updateUser(data as User);
           setModalVisible(false);
         }}
-        isEdit
+        isEdit={true}
       />
-      </View>
+    </View>
   );
 };
 
@@ -92,12 +92,6 @@ const styles = StyleSheet.create({
   container: {
     padding: 16,
     backgroundColor: '#f2f2f2',
-  },
-  header: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 16,
-    textAlign: 'center',
   },
   sectionTitle: {
     fontSize: 18,
@@ -140,7 +134,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     marginVertical: 20,
-    paddingHorizontal: 20
+    paddingHorizontal: 20,
   },
 });
 
