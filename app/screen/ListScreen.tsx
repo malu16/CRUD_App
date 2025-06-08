@@ -32,7 +32,7 @@ const {
         renderItem={({ item }) => (
           <TouchableOpacity onPress={() => navigation.navigate('UserDetail', { user: item })}>
             <View style={{ padding: 10, borderBottomWidth: 1 , flexDirection: 'row'}}>
-              <Text style={{ flex:1}}>{item.name}</Text>
+              <Text style={{ flex:1, color: '#000'}} >{item.name}</Text>
               <View style={{ flex:1, flexDirection:'row', justifyContent: 'space-evenly'}}>
                 <Button title="Edit" onPress={() => { setSelectedUser(item); setModalVisible(true); }} />
                 <Button title="Delete" onPress={() => deleteUser(item.id)} />

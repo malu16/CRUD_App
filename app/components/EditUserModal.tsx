@@ -218,7 +218,7 @@ const EditUserModal: React.FC<Props> = ({
 
 const styles = StyleSheet.create({
   container: { padding: 20, backgroundColor: 'white', flex:1 },
-  title: { fontSize: 24, fontWeight: 'bold', marginBottom: 20, textAlign: 'center' },
+  title: { fontSize: 24, fontWeight: 'bold', marginBottom: 20, textAlign: 'center', color: '#000' },
   sectionTitle: {
     fontSize: 18,
     fontWeight: '600',
